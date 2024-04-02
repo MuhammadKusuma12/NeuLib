@@ -1,0 +1,99 @@
+.bg-cTua {
+    background-color: #6B240C;
+}
+
+.bg-cPucat {
+    background-color: #F5CCA0;
+}
+
+.bg-cMedium {
+    background-color: #994D1C;
+}
+
+.btn-cMedium {
+    background-color: #994D1C;
+    color: white;
+}
+
+.btn-cMedium:hover {
+    background-color: #602d0b;
+    color: white;
+}
+
+.btn-cMedium:active{
+    background-color: #602d0b !important;
+    color: white !important;
+}
+
+.btn-cTua {
+    background-color: #6B240C;
+    color: white;
+}
+
+.btn-cTua:hover {
+    background-color: #994005;
+    color: white;
+}
+
+.btn-cTua:active{
+    background-color: #994005 !important;
+    color: white !important;
+}
+
+.btn-tr {
+    background-color: #5615159e;
+}
+
+.nav-item a:hover{
+    color: white !important;
+}
+
+.w-full {
+    width: 100vw;
+}
+
+.w-75{
+    width: 75vw !important;
+}
+
+.h-full {
+    height: 100dvh;
+}
+
+.h-10dvh {
+    height: 10dvh;
+}
+
+.font-caveat {
+    font-family: 'Caveat', 'Times New Roman', Times, serif;
+}
+
+.z-0{
+    z-index: 0;
+}
+
+.z-1 {
+    z-index: 10;
+}
+
+.nav-item a {
+    color: white;
+}
+
+.slide-in {
+    animation: slide-in 300ms ease-in forwards;
+    top: 11%;
+    right: -15%;
+    opacity: 0;
+}
+
+@keyframes slide-in {
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        right: 1%;
+        opacity: 1;
+    }
+}
