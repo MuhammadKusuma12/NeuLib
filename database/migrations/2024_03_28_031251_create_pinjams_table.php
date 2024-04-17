@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pinjams', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_anggota')->constrained('anggotas')->onDelete('cascade');
-            $table->foreignId('id_buku')->constrained('bukus')->onDelete('cascade');
+            $table->foreignId('id_buku')->constrained('books')->onDelete('cascade');
             $table->date('start_at')->nullable();
             $table->date('end_at')->nullable();
             $table->string('denda');

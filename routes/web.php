@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,10 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/login', [UserController::class, 'index']);
-Route::post('login', [UserController::class, 'login'])->name('login');
+Route::get('/login', [UserController::class, 'index'])->name('login');
+Route::post('login', [UserController::class, 'login']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('home');
+    Route::resource('/book', BookController::class);
+});

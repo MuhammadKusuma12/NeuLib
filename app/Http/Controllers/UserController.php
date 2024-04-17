@@ -19,25 +19,26 @@ class UserController extends Controller
     public function login(Request $request)
     {
         try {
-$this->validate($request, [
-    'username' => 'required',
-    'password' => 'required'
-]);
+            $this->validate($request, [
+                'username' => 'required',
+                'password' => 'required'
+            ]);
 
-if (Auth::guard('web')->attempt([
-    'username' => $request->input('username'),
-    'password' => $request->input('password')
-])) {
-    if (Auth::user()->role !== 'admin') {
-        Auth::logout();
-        throw new Exception('anda bukan admin.');
-    }
-    return redirect()->to('/');
-}
-} catch (ValidationException $e) {
-    return back()->withErrors($e->validator->errors());
-} catch (Exception $e) {
-    return back()->withErrors(['message' => $e->getMessage()]);
-}
+            if (Auth::guard('web')->attempt([
+                'username' => $request->input('username'),
+                'password' => $request->input('password')
+            ])) {
+                if (Auth::user()->role !== 'admin') {
+                    Auth::logout();
+                    throw new Exception('anda bukan admin.');
+                }
+                return redirect()->route('home');
+            }
+            return redirect()->back()->withErrors('Username atau password salah');
+        } catch (ValidationException $e) {
+            return back()->withErrors($e->validator->errors());
+        } catch (Exception $e) {
+            return back()->withErrors(['message' => $e->getMessage()]);
+        }
     }
 }
