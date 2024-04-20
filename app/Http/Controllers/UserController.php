@@ -11,12 +11,12 @@ use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    public function index()
+    public function login()
     {
         return view('login');
     }
 
-    public function login(Request $request)
+    public function auth(Request $request)
     {
         try {
             $this->validate($request, [
@@ -40,5 +40,55 @@ class UserController extends Controller
         } catch (Exception $e) {
             return back()->withErrors(['message' => $e->getMessage()]);
         }
+    }
+
+    public function index()
+    {
+        $users = User::latest()->paginate(20);
+        return view('user.index', ['users' => $users], ['activePage' => 'user']);
+    }
+
+    public function create()
+    {
+        return view('user.create', ['activePage' => 'user']);
+    }
+
+    public function store(Request $request)
+    {
+        User::create([
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->to('/user');
+    }
+
+    public function show($id)
+    {
+        $user = User::with('anggotas')->findOrFail($id);
+
+        if ($user->anggotas->isEmpty()) {
+            return redirect()->route('user.index')->withErrors(['message' => 'User belum mengisi profil']);
+        }
+        $anggota = $user->anggotas->first();
+
+        return view('user.show', ['anggota' => $anggota, 'users' => $user, 'activePage' => 'user']);
+    }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('user.edit', ['activePage' => 'user', 'user' => $user]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->to('/user');
     }
 }

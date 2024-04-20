@@ -16,10 +16,11 @@ use App\Http\Controllers\BookController;
 |
 */
 
-Route::get('/login', [UserController::class, 'index'])->name('login');
-Route::post('login', [UserController::class, 'login']);
+Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::post('login', [UserController::class, 'auth']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
     Route::resource('/book', BookController::class);
+    Route::resource('/user', UserController::class);
 });
